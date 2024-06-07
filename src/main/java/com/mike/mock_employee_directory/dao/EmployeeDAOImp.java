@@ -26,4 +26,23 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		return theQuery.getResultList();
 	}
 
+	@Override
+	public Employee findById(Integer id) {
+		Employee employee = entityManager.find(Employee.class, id);
+		return employee;
+	}
+
+	@Override
+	public Employee save(Employee theEmployee) {
+		Employee dbEmployee = entityManager.merge(theEmployee); // merge performs a save or update unless the id == 0
+		// if id == 0, it will be an insert else it will be an update
+		return dbEmployee; // has the updated id after the merge
+	}
+
+	@Override
+	public void delete(Integer id) {
+		Employee dbEmployee = entityManager.find(Employee.class, id);
+		entityManager.remove(dbEmployee);
+	}
+
 }

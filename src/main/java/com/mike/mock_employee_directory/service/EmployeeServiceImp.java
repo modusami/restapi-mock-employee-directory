@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.mike.mock_employee_directory.dao.EmployeeDAO;
 import com.mike.mock_employee_directory.entity.Employee;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmployeeServiceImp implements EmployeeService {
 	
@@ -22,6 +24,23 @@ public class EmployeeServiceImp implements EmployeeService {
 	@Override
 	public List<Employee> findAll() {
 		return employeeDAO.findAll();
+	}
+
+	@Override
+	public Employee findById(Integer idn) {
+		return employeeDAO.findById(idn);
+	}
+
+	@Transactional
+	@Override
+	public Employee save(Employee theEmployee) {
+		return employeeDAO.save(theEmployee);
+	}
+
+	@Transactional
+	@Override
+	public void delete(Integer id) {
+		employeeDAO.delete(id);
 	}
 
 }
